@@ -1,12 +1,31 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect, Component, ErrorInfo, ReactNode } from 'react';
 import Spline from '@splinetool/react-spline';
-import { Sparkles, Box, RefreshCw } from 'lucide-react';
+import { Sparkles, RefreshCw } from 'lucide-react';
 
 interface Spline3DModelProps {
   sceneUrl?: string;
   fallbackType?: 'calendar' | 'beauty' | 'clinic' | 'psychology' | 'massage' | 'dashboard';
   title?: string;
   height?: string;
+}
+
+class SplineErrorBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { hasError: boolean }> {
+  public state = { hasError: false };
+
+  public static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.warn('Spline 3D error caught:', error, errorInfo);
+  }
+
+  public render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
 }
 
 export const Spline3DModel: React.FC<Spline3DModelProps> = ({
@@ -17,6 +36,10 @@ export const Spline3DModel: React.FC<Spline3DModelProps> = ({
 }) => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  const fallbackVisual = (
+    <InteractiveCategory3DVisual type={fallbackType} onLoad={() => setIsLoading(false)} />
+  );
 
   return (
     <div className={`relative w-full ${height} rounded-2xl glass-panel overflow-hidden border border-[#FF6A00]/20 flex items-center justify-center group`}>
@@ -29,25 +52,26 @@ export const Spline3DModel: React.FC<Spline3DModelProps> = ({
         </div>
       )}
 
-      {/* Spline Live Scene rendering or High-Performance Native 3D Graphic */}
+      {/* Spline Live Scene rendering or High-Performance Native 3D Visual */}
       {sceneUrl && !hasError ? (
-        <Suspense
-          fallback={
-            <div className="flex items-center justify-center text-xs text-slate-400">
-              در حال آماده‌سازی صحنه سه‌بعدی...
-            </div>
-          }
-        >
-          <Spline
-            scene={sceneUrl}
-            onLoad={() => setIsLoading(false)}
-            onError={() => setHasError(true)}
-            className="w-full h-full"
-          />
-        </Suspense>
+        <SplineErrorBoundary fallback={fallbackVisual}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center text-xs text-slate-400">
+                در حال آماده‌سازی صحنه سه‌بعدی...
+              </div>
+            }
+          >
+            <Spline
+              scene={sceneUrl}
+              onLoad={() => setIsLoading(false)}
+              onError={() => setHasError(true)}
+              className="w-full h-full"
+            />
+          </Suspense>
+        </SplineErrorBoundary>
       ) : (
-        /* Fallback Interactive Category 3D Visual Element */
-        <InteractiveCategory3DVisual type={fallbackType} onLoad={() => setIsLoading(false)} />
+        fallbackVisual
       )}
 
       {/* Badge Overlay */}
