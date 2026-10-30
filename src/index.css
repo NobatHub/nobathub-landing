@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-brand-orange: #FF6A00;
+    --color-brand-orange-hover: #E05D00;
+    --color-brand-[#111111]: #111111;
+    --color-bg-light: #FAFAFC;
+    font-family: 'Vazirmatn', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  body {
+    direction: rtl;
+    text-align: right;
+    background-color: #FAFAFC;
+    color: #111111;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+}
+
+/* Haikei Light & Clean Glassmorphism Utilities */
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(17, 24, 39, 0.04);
+}
+
+.glass-panel-light-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-light-hover:hover {
+  background: #FFFFFF;
+  border-color: rgba(255, 106, 0, 0.35);
+  box-shadow: 0 12px 35px -5px rgba(255, 106, 0, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+.glow-orange-light {
+  box-shadow: 0 10px 30px -5px rgba(255, 106, 0, 0.25);
+}
+
+.text-gradient-orange {
+  background: linear-gradient(135deg, #FF7B1C 0%, #FF6A00 50%, #E05D00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient-orange {
+  background: linear-gradient(135deg, #FF7B1C 0%, #FF6A00 100%);
+}
+
+.bg-gradient-orange-hover {
+  background: linear-gradient(135deg, #FF8C38 0%, #FF7B1C 100%);
+}
+
+/* Haikei Layered SVG Organic Waves Backgrounds */
+.haikei-bg-blob {
+  background-image: radial-gradient(circle at 10% 20%, rgba(255, 106, 0, 0.08) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 80%, rgba(255, 140, 56, 0.06) 0%, transparent 45%),
+                    radial-gradient(circle at 50% 50%, rgba(241, 245, 249, 0.5) 0%, transparent 100%);
+}
+
+/* Tabular Persian Numbers */
+.tabular-persian {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom Scrollbar for Light Theme */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAFAFC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+  border: 2px solid #FAFAFC;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF6A00;
+}

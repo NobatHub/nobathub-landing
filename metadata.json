@@ -1,0 +1,6 @@
+{
+  "name": "NobatHub - پلتفرم هوشمند نوبت‌دهی",
+  "description": "سامانه جامع نوبت‌دهی آنلاین، مدیریت کسب‌وکار، سیستم معرفی دوستان و پشتیبانی هوشمند",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
